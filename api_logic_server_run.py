@@ -2,7 +2,7 @@
 
 ###############################################################################
 #
-#    This file initializes and starts the API Logic Server (v 09.03.03, September 17, 2023 10:28:13):
+#    This file initializes and starts the API Logic Server (v 09.03.03, September 17, 2023 14:37:43):
 #        $ python3 api_logic_server_run.py [--help]
 #
 #    Then, access the Admin App and API via the Browser, eg:  
@@ -116,7 +116,7 @@ if debug_value is not None:  # > export APILOGICPROJECT_DEBUG=True
         app_logger.setLevel(logging.DEBUG)
         app_logger.debug(f'\nDEBUG level set from env\n')
 app_logger.info(f'\nAPI Logic Project ({project_name}) Starting with CLI args: \n.. {args}\n')
-app_logger.info(f'Created September 17, 2023 10:28:13 at {str(current_path)}\n')
+app_logger.info(f'Created September 17, 2023 14:37:43 at {str(current_path)}\n')
 
 
 class ValidationErrorExt(ValidationError):

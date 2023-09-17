@@ -1,5 +1,5 @@
 # coding: utf-8
-from sqlalchemy import Column, DECIMAL, Date, ForeignKey, Integer, String
+from sqlalchemy import Column, Date, Float, ForeignKey, Integer, Text, text
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -9,7 +9,7 @@ from sqlalchemy.ext.declarative import declarative_base
 # Alter this file per your database maintenance policy
 #    See https://apilogicserver.github.io/Docs/Project-Rebuild/#rebuilding
 #
-# Created:  September 17, 2023 10:28:13
+# Created:  September 17, 2023 14:37:43
 # Database: sqlite:////Users/val/dev/ApiLogicServer/ApiLogicServer-dev/servers/ai_customer_orders/database/db.sqlite
 # Dialect:  sqlite
 #
@@ -43,11 +43,11 @@ class Customer(SAFRSBase, Base):
     __bind_key__ = 'None'
 
     CustomerID = Column(Integer, primary_key=True)
-    FirstName = Column(String(255))
-    LastName = Column(String(255))
-    Email = Column(String(255))
-    CreditLimit : DECIMAL = Column(DECIMAL(10, 2))
-    Balance : DECIMAL = Column(DECIMAL(10, 2))
+    FirstName = Column(Text)
+    LastName = Column(Text)
+    Email = Column(Text)
+    CreditLimit = Column(Float)
+    Balance = Column(Float, server_default=text("0.0"))
 
     # parent relationships (access parent)
 
@@ -73,8 +73,8 @@ class Product(SAFRSBase, Base):
     __bind_key__ = 'None'
 
     ProductID = Column(Integer, primary_key=True)
-    ProductName = Column(String(255))
-    UnitPrice : DECIMAL = Column(DECIMAL(10, 2))
+    ProductName = Column(Text)
+    UnitPrice = Column(Float)
 
     # parent relationships (access parent)
 
@@ -132,7 +132,7 @@ class OrderItem(SAFRSBase, Base):
     OrderID = Column(ForeignKey('Orders.OrderID'))
     ProductID = Column(ForeignKey('Products.ProductID'))
     Quantity = Column(Integer)
-    ItemPrice : DECIMAL = Column(DECIMAL(10, 2))
+    ItemPrice = Column(Float)
 
     # parent relationships (access parent)
     Order : Mapped["Order"] = relationship(back_populates=("OrderItemList"))

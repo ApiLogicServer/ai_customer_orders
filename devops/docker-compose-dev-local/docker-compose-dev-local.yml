@@ -12,6 +12,7 @@ version: "3.5"
 services:
 
     sqlite3:
+      # hmm... runs, but not access; SQLAlchemy syntax for sqlite service?  (it's just files below)
       image: nouchka/sqlite3:latest
       stdin_open: true
       tty: true
