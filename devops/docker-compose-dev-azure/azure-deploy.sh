@@ -2,8 +2,8 @@
 
 # intended for use in portal cli - not to be run on your local machine.
 
-projectname="ai_customer_orders"  # lower case, only
-resourcegroup="ai_customer_orders_rg"
+projectname="aicustomerorders"  # lower case, only
+resourcegroup="aicustomerorders_rg"
 dockerrepositoryname="apilogicserver"  # change this to your DockerHub Repository
 githubaccount="apilogicserver"         # change this to your GitHub account
 version="1.0.0"
@@ -13,8 +13,8 @@ version="1.0.0"
 # which uses: https://github.com/Azure-Samples/multicontainerwordpress
 
 # login to Azure Portal CLI (substitute your github account for apilogicserver)
-# git clone https://github.com/apilogicserver/ai_customer_orders.git
-# cd ai_customer_orders
+# git clone https://github.com/apilogicserver/aicustomerorders.git
+# cd aicustomerorders
 # sh devops/docker-compose-dev-azure/azure-deploy.sh
 
 echo " "
@@ -74,7 +74,7 @@ az group create --name $resourcegroup --location "westus"
 az appservice plan create --name myAppServicePlan --resource-group $resourcegroup --sku S1 --is-linux
 
 # create docker compose app
-az webapp create --resource-group $resourcegroup --plan myAppServicePlan --name ai_customer_orders --multicontainer-config-type compose --multicontainer-config-file devops/docker-compose-dev-azure/docker-compose-dev-azure.yml
+az webapp create --resource-group $resourcegroup --plan myAppServicePlan --name aicustomerorders --multicontainer-config-type compose --multicontainer-config-file devops/docker-compose-dev-azure/docker-compose-dev-azure.yml
 
 set +x # reset echo
 

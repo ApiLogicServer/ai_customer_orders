@@ -20,7 +20,7 @@ services:
       # thanks: https://stackoverflow.com/questions/65811608/how-to-connect-flask-app-to-sqlite-db-running-in-docker
 
     api-logic-server:
-        image: apilogicserver/ai_customer_orders
+        image: apilogicserver/aicustomerorders
         environment:
           - APILOGICPROJECT_VERBOSE=true
           - SECURITY_ENABLED=true

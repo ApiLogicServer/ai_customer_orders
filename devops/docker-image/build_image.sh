@@ -9,7 +9,7 @@
 #    $ cd <your project>
 #    $ sh devops/docker-image/build_image.sh .
 
-projectname="ai_customer_orders"  # lower case, only
+projectname="aicustomerorders"  # lower case, only
 repositoryname="apilogicserver"
 version="1.0.0"
 

@@ -4,32 +4,32 @@ version: "3.5"
 
 services:
 
-    sqlite3:
-      image: nouchka/sqlite3:latest
-      stdin_open: true
-      tty: true
-      volumes:
-        - ../../database/:/root/db/
-      # thanks: https://stackoverflow.com/questions/65811608/how-to-connect-flask-app-to-sqlite-db-running-in-docker
-
     api-logic-server:
-        image: apilogicserver/ai_customer_orders
+        image: apilogicserver/aicustomerorders
         environment:
           - APILOGICPROJECT_VERBOSE=true
           - SECURITY_ENABLED=true
-          - APILOGICPROJECT_CLIENT_URI=//ai_customer_orders.azurewebsites.net
+          - APILOGICPROJECT_CLIENT_URI=//aicustomerorders.azurewebsites.net
           # - APILOGICPROJECT_HTTP_SCHEME=https
           - PYTHONPATH=/app/ApiLogicProject 
-          ## todid - database uri's:
-          - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI=sqlite:////my/sqlite/path/db.sqlite
-          - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI_AUTHENTICATION=sqlite:////my/sqlite/path/authentication_db.sqlite
+          ## todid - specify Database uri's:
+          - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI=postgresql://postgres:p@postgres-service/postgres
+          - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI_AUTHENTICATION=postgresql://postgres:p@postgres-service/authdb
+
         expose:
            - 5656
         ports:
             - 5656:5656
         volumes:
-          # local:path-in-container
-          - ../:/app
-          - ../../database/:/my/sqlite/path/
+            - ${WEBAPP_STORAGE_HOME}/classicmodels:/app
         # container should start automatically - command:  api_logic_server_run.py
         working_dir: /home/api_logic_project
+
+    sqlite-service:
+        image: apilogicserver/postgres:latest
+        restart: always
+        environment:
+          - PGDATA=/pgdata
+          - POSTGRES_PASSWORD=p
+        ports:
+          - "5432:5432"
