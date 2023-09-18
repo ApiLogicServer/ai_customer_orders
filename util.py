@@ -256,3 +256,5 @@ def sys_info(flask_app_config):
         local_ip = f"Warning - Failed local_ip = socket.gethostbyname(hostname) with hostname: {hostname}"
 
     print(f"hostname={hostname} on local_ip={local_ip}\n\n")
+
+    print(f"os.getcwd()={os.getcwd()}\n\n")

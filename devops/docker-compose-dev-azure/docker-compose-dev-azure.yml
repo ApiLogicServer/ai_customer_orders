@@ -4,6 +4,16 @@ version: "3.5"
 
 services:
 
+    sqlite3:
+      # hmm... runs, but not access; SQLAlchemy syntax for sqlite service?  (it's just files below)
+      image: nouchka/sqlite3:latest
+      stdin_open: true
+      tty: true
+      volumes:
+        - ../../database/:/root/db/
+      # thanks (?): https://stackoverflow.com/questions/65811608/how-to-connect-flask-app-to-sqlite-db-running-in-docker
+      # https://learn.microsoft.com/en-us/azure/developer/python/tutorial-containerize-simple-web-app?tabs=web-app-flask
+
     api-logic-server:
         image: apilogicserver/aicustomerorders
         environment:
@@ -13,15 +23,15 @@ services:
           # - APILOGICPROJECT_HTTP_SCHEME=https
           - PYTHONPATH=/app/ApiLogicProject 
           ## todid - database uri's:
-          - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI=sqlite:////app/database/db.sqlite
-          - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI_AUTHENTICATION=sqlite:////app/database/authentication_db.sqlite
+          - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI=sqlite:///../database/db.sqlite
+          - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI_AUTHENTICATION=sqlite:///../database/authentication_db.sqlite
 
         expose:
            - 5656
         ports:
             - 5656:5656
         volumes:
-            - ${WEBAPP_STORAGE_HOME}/ai_customer_orders:/app
-            # - ${WEBAPP_STORAGE_HOME}/home/api_logic_project/database/:/my/sqlite/path/
+            - ${WEBAPP_STORAGE_HOME}/aicustomerorders:/app
+            - /home/api_logic_project/database/:/my/sqlite/path/
         # container should start automatically - command:  api_logic_server_run.py
         working_dir: /home/api_logic_project

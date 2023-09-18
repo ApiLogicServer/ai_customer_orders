@@ -10,12 +10,13 @@
             "env": {
                 "PYTHONPATH": "", 
                 "PYTHONHASHSEED": "0", 
-                "APILOGICPROJECT_DEBUG": "False"},
+                "APILOGICPROJECT_DEBUG": "False",
+                "SQLALCHEMY_DATABASE_URI": "sqlite:///../database/db.sqlite"},
             "request": "launch",
             "program": "api_logic_server_run.py",
             "redirectOutput": true,
             "justMyCode": false,
-            "args": ["--flask_host=localhost", "--port=5656", "--swagger_host=localhost", "--verbose=False"],
+            "args": ["--flask_host=localhost", "--port=5656", "--swagger_host=localhost", "--verbose=True"],
             "console": "internalConsole",
             "internalConsoleOptions": "openOnSessionStart"
         },
