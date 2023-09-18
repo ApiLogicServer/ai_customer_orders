@@ -16,7 +16,7 @@
 #
 ###############################################################################
 
-start_up_message = "startup message"
+start_up_message = "force verbose, hardcode ip"
 
 import traceback
 try:
@@ -312,6 +312,7 @@ app_logger.debug(f"\nCLI args: \n{args}")                       # api_logic_serv
 flask_app.config.from_prefixed_env(prefix="APILOGICPROJECT")    # env overrides (e.g., docker)
 app_logger.debug(f"\nENV args: \n{args}\n\n")
 
+args.verbose = "True"
 if args.verbose:
     app_logger.setLevel(logging.DEBUG)
     safrs.log.setLevel(logging.DEBUG)  # notset 0, debug 10, info 20, warn 30, error 40, critical 50
