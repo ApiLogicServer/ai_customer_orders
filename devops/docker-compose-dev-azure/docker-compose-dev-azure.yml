@@ -31,6 +31,6 @@ services:
             - 5656:5656
         volumes:
             - ${WEBAPP_STORAGE_HOME}/aicustomerorders:/app
-            - /home/api_logic_project/database/:/my/sqlite/path/
+            - ${WEBAPP_STORAGE_HOME}/home/api_logic_project/database/:/my/sqlite/path/
         # container should start automatically - command:  api_logic_server_run.py
         working_dir: /home/api_logic_project
