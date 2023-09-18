@@ -16,6 +16,7 @@
 #
 ###############################################################################
 
+start_up_message = "startup message"
 
 import traceback
 try:
@@ -325,6 +326,7 @@ AdminLoader.admin_events(flask_app = flask_app, args = args, validation_error = 
 
 if __name__ == "__main__":
     msg = f'API Logic Project loaded (not WSGI), version 09.03.03\n'
+    msg += f'.. startup message: {start_up_message}\n'
     if is_docker():
         msg += f' (running from docker container at flask_host: {args.flask_host} - may require refresh)\n'
     else:
@@ -347,6 +349,7 @@ if __name__ == "__main__":
     flask_app.run(host=args.flask_host, threaded=True, port=args.port)
 else:
     msg = f'API Logic Project Loaded (WSGI), version 09.03.03\n'
+    msg += f'.. startup message: {start_up_message}\n'
     if is_docker():
         msg += f' (running from docker container at {args.flask_host} - may require refresh)\n'
     else:
