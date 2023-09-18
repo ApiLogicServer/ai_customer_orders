@@ -13,15 +13,15 @@ services:
           # - APILOGICPROJECT_HTTP_SCHEME=https
           - PYTHONPATH=/app/ApiLogicProject 
           ## todid - database uri's:
-          - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI=sqlite:////my/sqlite/path/db.sqlite
-          - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI_AUTHENTICATION=sqlite:////my/sqlite/path/authentication_db.sqlite
+          - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI=sqlite:////app/database/db.sqlite
+          - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI_AUTHENTICATION=sqlite:////app/database/authentication_db.sqlite
 
         expose:
            - 5656
         ports:
             - 5656:5656
         volumes:
-            - ${WEBAPP_STORAGE_HOME}/aicustomerorders:/app
-            - ${WEBAPP_STORAGE_HOME}/home/api_logic_project/database/:/my/sqlite/path/
+            - ${WEBAPP_STORAGE_HOME}/ai_customer_orders:/app
+            # - ${WEBAPP_STORAGE_HOME}/home/api_logic_project/database/:/my/sqlite/path/
         # container should start automatically - command:  api_logic_server_run.py
         working_dir: /home/api_logic_project
