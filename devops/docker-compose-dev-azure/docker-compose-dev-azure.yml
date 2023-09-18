@@ -4,6 +4,16 @@ version: "3.5"
 
 services:
 
+    sqlite3:
+      # hmm... runs, but not access; SQLAlchemy syntax for sqlite service?  (it's just files below)
+      image: nouchka/sqlite3:latest
+      stdin_open: true
+      tty: true
+      volumes:
+        - ${WEBAPP_STORAGE_HOME}/../../database/:/root/db/
+      # thanks (?): https://stackoverflow.com/questions/65811608/how-to-connect-flask-app-to-sqlite-db-running-in-docker
+      # https://learn.microsoft.com/en-us/azure/developer/python/tutorial-containerize-simple-web-app?tabs=web-app-flask
+
     api-logic-server:
         image: apilogicserver/aicustomerorders
         environment:
