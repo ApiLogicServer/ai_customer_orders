@@ -26,8 +26,8 @@ services:
           - APILOGICPROJECT_VERBOSE=true
           - SECURITY_ENABLED=true
           ## todid - database uri's:
-          - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI=sqlite:///../database/db.sqlite
-          - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI_AUTHENTICATION=sqlite:///../database/authentication_db.sqlite
+          # - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI=sqlite:///../database/db.sqlite
+          # - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI_AUTHENTICATION=sqlite:///../database/authentication_db.sqlite
         expose:
           - 5656
         ports:
