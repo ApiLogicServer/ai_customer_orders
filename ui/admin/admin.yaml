@@ -1,10 +1,10 @@
 about:
-  date: September 18, 2023 12:47:42
+  date: September 18, 2023 14:07:54
   recent_changes: works with modified safrs-react-admin
   version: 0.0.0
-api_root: https://aicustomerorders.westus.azurecontainer.io:5656/api
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
 authentication:
-  endpoint: https://aicustomerorders.westus.azurecontainer.io:5656/api/auth/login
+  endpoint: '{http_type}://{swagger_host}:{port}/api/auth/login'
 info:
   number_relationships: 3
   number_tables: 4
