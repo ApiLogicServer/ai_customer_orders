@@ -2,9 +2,9 @@ about:
   date: September 18, 2023 12:47:42
   recent_changes: works with modified safrs-react-admin
   version: 0.0.0
-api_root: //aicustomerorders.westus.azurecontainer.io:5656/api
+api_root: //aicustomerorderscontainer.westus.azurecontainer.io:5656/api
 authentication:
-  endpoint: //aicustomerorders.westus.azurecontainer.io:5656/api/auth/login
+  endpoint: //aicustomerorderscontainer.westus.azurecontainer.io:5656/api/auth/login
 info:
   number_relationships: 3
   number_tables: 4
