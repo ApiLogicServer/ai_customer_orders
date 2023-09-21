@@ -16,7 +16,7 @@
 #
 ###############################################################################
 
-start_up_message = "force verbose, hardcode ip"
+start_up_message = "force verbose, hardcode ip, thos fix!"
 
 import traceback
 try:
