@@ -1,10 +1,10 @@
 about:
-  date: September 18, 2023 12:47:42
+  date: September 22, 2023 08:52:55
   recent_changes: works with modified safrs-react-admin
   version: 0.0.0
-api_root: //aicustomerorderscontainer.westus.azurecontainer.io:5656/api
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
 authentication:
-  endpoint: //aicustomerorderscontainer.westus.azurecontainer.io:5656/api/auth/login
+  endpoint: '{http_type}://{swagger_host}:{port}/api/auth/login'
 info:
   number_relationships: 3
   number_tables: 4
@@ -18,7 +18,9 @@ resources:
     - name: LastName
     - name: Email
     - name: CreditLimit
+      type: DECIMAL
     - name: Balance
+      type: DECIMAL
     - name: CustomerID
     tab_groups:
     - direction: tomany
@@ -35,6 +37,8 @@ resources:
       search: true
       sort: true
     - name: CustomerID
+    - name: AmountTotal
+      type: DECIMAL
     - name: OrderDate
       type: DATE
     - name: ShipDate
@@ -62,6 +66,9 @@ resources:
     - name: ProductID
     - name: Quantity
     - name: ItemPrice
+      type: DECIMAL
+    - name: Amount
+      type: DECIMAL
     tab_groups:
     - direction: toone
       fks:

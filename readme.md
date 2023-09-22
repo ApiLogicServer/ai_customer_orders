@@ -115,8 +115,8 @@ For information on Managing API Logic Projects, [click here](https://apilogicser
 
 | About                    | Info                               |
 |:-------------------------|:-----------------------------------|
-| Created                  | September 18, 2023 12:47:42                      |
-| API Logic Server Version | 09.03.03           |
+| Created                  | September 22, 2023 08:52:55                      |
+| API Logic Server Version | 09.03.06           |
 | Created in directory     | ../../../servers/ai_customer_orders |
 | API Name                 | api          |
 | Execution begins with    | `api_logic_server_run.py`          |
