@@ -74,7 +74,7 @@ az group create --name $resourcegroup --location "westus"
 az appservice plan create --name myAppServicePlan --resource-group $resourcegroup --sku S1 --is-linux
 
 # create single-container app
-az container create --resource-group $resourcegroup --name api_logic_server/aicustomerorders --image ${dockerrepositoryname}/${projectname}:latest --dns-name-label aicustomerorders --ports 5656 --environment-variables 'VERBOSE'='True'  'APILOGICPROJECT_CLIENT_URI'='//aicustomerorders.westus.azurecontainer.io'
+az container create --resource-group $resourcegroup --name aicustomerorders --image ${dockerrepositoryname}/${projectname}:latest --dns-name-label aicustomerorders --ports 5656 --environment-variables 'VERBOSE'='True'  'APILOGICPROJECT_CLIENT_URI'='//aicustomerorders.westus.azurecontainer.io'
 
 set +x # reset echo
 
