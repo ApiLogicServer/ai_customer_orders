@@ -1,5 +1,5 @@
 # coding: utf-8
-from sqlalchemy import Column, DECIMAL, Date, Float, ForeignKey, Integer, Text, text
+from sqlalchemy import CheckConstraint, Column, DECIMAL, Date, ForeignKey, Integer, Text
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -9,7 +9,7 @@ from sqlalchemy.ext.declarative import declarative_base
 # Alter this file per your database maintenance policy
 #    See https://apilogicserver.github.io/Docs/Project-Rebuild/#rebuilding
 #
-# Created:  September 22, 2023 08:52:55
+# Created:  September 28, 2023 10:28:25
 # Database: sqlite:////Users/val/dev/ApiLogicServer/ApiLogicServer-dev/servers/ai_customer_orders/database/db.sqlite
 # Dialect:  sqlite
 #
@@ -41,13 +41,15 @@ class Customer(SAFRSBase, Base):
     __tablename__ = 'Customers'
     _s_collection_name = 'Customer'  # type: ignore
     __bind_key__ = 'None'
+    __table_args__ = (
+        CheckConstraint('Balance <= CreditLimit'),
+    )
 
     CustomerID = Column(Integer, primary_key=True)
-    FirstName = Column(Text)
-    LastName = Column(Text)
-    Email = Column(Text)
+    FirstName = Column(Text, nullable=False)
+    LastName = Column(Text, nullable=False)
+    Balance : DECIMAL = Column(DECIMAL)
     CreditLimit : DECIMAL = Column(DECIMAL)
-    Balance : DECIMAL = Column(DECIMAL, server_default=text("0.0"))
 
     # parent relationships (access parent)
 
@@ -71,15 +73,18 @@ class Product(SAFRSBase, Base):
     __tablename__ = 'Products'
     _s_collection_name = 'Product'  # type: ignore
     __bind_key__ = 'None'
+    __table_args__ = (
+        CheckConstraint('UnitPrice >= 0'),
+    )
 
     ProductID = Column(Integer, primary_key=True)
-    ProductName = Column(Text)
-    UnitPrice = Column(Float)
+    ProductName = Column(Text, nullable=False)
+    UnitPrice : DECIMAL = Column(DECIMAL)
 
     # parent relationships (access parent)
 
     # child relationships (access children)
-    OrderItemList : Mapped[List["OrderItem"]] = relationship(back_populates="Product")
+    ItemList : Mapped[List["Item"]] = relationship(back_populates="Product")
 
     @jsonapi_attr
     def _check_sum_(self):  # type: ignore [no-redef]
@@ -101,15 +106,16 @@ class Order(SAFRSBase, Base):
 
     OrderID = Column(Integer, primary_key=True)
     CustomerID = Column(ForeignKey('Customers.CustomerID'))
-    AmountTotal : DECIMAL = Column(DECIMAL)
     OrderDate = Column(Date)
     ShipDate = Column(Date)
+    AmountTotal : DECIMAL = Column(DECIMAL)
+    Notes = Column(Text)
 
     # parent relationships (access parent)
     Customer : Mapped["Customer"] = relationship(back_populates=("OrderList"))
 
     # child relationships (access children)
-    OrderItemList : Mapped[List["OrderItem"]] = relationship(back_populates="Order")
+    ItemList : Mapped[List["Item"]] = relationship(back_populates="Order")
 
     @jsonapi_attr
     def _check_sum_(self):  # type: ignore [no-redef]
@@ -124,21 +130,21 @@ class Order(SAFRSBase, Base):
     S_CheckSum = _check_sum_
 
 
-class OrderItem(SAFRSBase, Base):
-    __tablename__ = 'OrderItems'
-    _s_collection_name = 'OrderItem'  # type: ignore
+class Item(SAFRSBase, Base):
+    __tablename__ = 'Items'
+    _s_collection_name = 'Item'  # type: ignore
     __bind_key__ = 'None'
 
-    OrderItemID = Column(Integer, primary_key=True)
+    ItemID = Column(Integer, primary_key=True)
     OrderID = Column(ForeignKey('Orders.OrderID'))
     ProductID = Column(ForeignKey('Products.ProductID'))
     Quantity = Column(Integer)
-    ItemPrice : DECIMAL = Column(DECIMAL)
     Amount : DECIMAL = Column(DECIMAL)
+    UnitPrice : DECIMAL = Column(DECIMAL)
 
     # parent relationships (access parent)
-    Order : Mapped["Order"] = relationship(back_populates=("OrderItemList"))
-    Product : Mapped["Product"] = relationship(back_populates=("OrderItemList"))
+    Order : Mapped["Order"] = relationship(back_populates=("ItemList"))
+    Product : Mapped["Product"] = relationship(back_populates=("ItemList"))
 
     # child relationships (access children)
 

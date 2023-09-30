@@ -17,6 +17,42 @@ def declare_logic():
     Use code completion (Rule.) to declare rules here:
     '''
 
+    ''' Declarative multi-table derivations and constraints, extensible with Python. 
+
+    Brief background: see readme_declare_logic.md
+
+    Use code completion (Rule.) to declare rules here:
+
+
+    1. Customer.Balance <= CreditLimit
+
+    2. Customer.Balance = Sum(Order.AmountTotal where unshipped)
+
+    3. Order.AmountTotal = Sum(Items.Amount)
+
+    4. Items.Amount = Quantity * UnitPrice
+
+    5. Items.UnitPrice = copy from Product
+    '''
+
+    Rule.constraint(validate=models.Customer,       # logic design translates directly into rules
+        as_condition=lambda row: row.Balance <= row.CreditLimit,
+        error_msg="balance ({round(row.Balance, 2)}) exceeds credit ({round(row.CreditLimit, 2)})")
+
+    Rule.sum(derive=models.Customer.Balance,        # adjust iff AmountTotal or ShippedDate or CustomerID changes
+        as_sum_of=models.Order.AmountTotal,
+        where=lambda row: row.ShipDate is None)     # adjusts - *not* a sql select sum...
+
+    Rule.sum(derive=models.Order.AmountTotal,       # adjust iff Amount or OrderID changes
+        as_sum_of=models.Item.Amount)
+
+    Rule.formula(derive=models.Item.Amount,    # compute price * qty
+        as_expression=lambda row: row.UnitPrice * row.Quantity)
+
+    Rule.copy(derive=models.Item.UnitPrice,    # get Product Price (e,g., on insert, or ProductId change)
+        from_parent=models.Product.UnitPrice)
+
+
     def handle_all(logic_row: LogicRow):  # OPTIMISTIC LOCKING, [TIME / DATE STAMPING]
         """
         This is generic - executed for all classes.

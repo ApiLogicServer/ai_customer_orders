@@ -1,5 +1,5 @@
 about:
-  date: September 22, 2023 10:37:33
+  date: September 28, 2023 10:29:38
   recent_changes: works with modified safrs-react-admin
   version: 0.0.0
 api_root: '{http_type}://{swagger_host}:{port}/{api}'
